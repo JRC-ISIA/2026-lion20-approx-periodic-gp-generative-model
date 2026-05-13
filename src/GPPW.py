@@ -1,5 +1,4 @@
 import torch
-# torch.autograd.set_detect_anomaly(True)
 from torch import nn
 from torch.optim import Adam
 from tqdm import tqdm
@@ -12,12 +11,6 @@ from src.kernels import make_positive, make_positive_inv
 from scipy.linalg import cholesky_banded, cho_solve_banded
 
 import matplotlib.pyplot as plt
-
-# torch.manual_seed(42)
-
-# def make_positive(x):
-#     return torch.nn.functional.softplus(x)
-	# return torch.exp(x)
 
 class SWDataset(torch.utils.data.Dataset):
 	def __init__(self, X, y, batch_size):
@@ -45,8 +38,7 @@ class GPPW(nn.Module):
 	):
 		super().__init__()
 
-		# out_var is necessary for banding
-		self.learn_out_var = learn_out_var or weight_kernel.banded
+		self.learn_out_var = learn_out_var
 
 		self.kernels = nn.ModuleList(kernels)
 		self.weight_kernel = weight_kernel

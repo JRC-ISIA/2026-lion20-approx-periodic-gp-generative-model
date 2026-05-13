@@ -1,17 +1,13 @@
 import torch
 from torch import nn
 from typing import List
-# from utils.kernel import make_positive
-# defined differently for quick testing
 
 def make_positive(x):
 	return nn.functional.softplus(x)
-	# return torch.exp(x)
 
 def make_positive_inv(y):
 	y = torch.tensor([y]) if type(y) != torch.Tensor else y
 	return torch.log(y.exp() - 1.0)
-	# return torch.log(y)
 
 class Kernel(nn.Module):
 	def __init__(self, *args, **kwargs):
@@ -83,12 +79,6 @@ class NSPeriodicKernel(PeriodicKernel):
 		super().__init__(*args, **kwargs)
 
 		N = 8
-		self.l = nn.Sequential(
-			nn.Linear(2, N),
-			nn.Softplus(),
-			nn.Linear(N, 1),
-			nn.Softplus(),
-		)
 		self.w = nn.Sequential(
 			nn.Linear(2, N),
 			nn.Softplus(),
