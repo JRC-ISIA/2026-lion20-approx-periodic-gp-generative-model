@@ -30,7 +30,7 @@ class RBF(Kernel):
 		self.var_raw = nn.Parameter(torch.tensor(0.0))
 
 	def forward(self, x1: torch.tensor, x2: torch.tensor) -> torch.tensor:
-		l = make_positive(2 * self.l_raw)
+		l = make_positive(self.l_raw)
 		var = make_positive(self.var_raw)
 
 		norm = squared_dist(x1 / l, x2 / l)
